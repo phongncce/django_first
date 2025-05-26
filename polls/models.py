@@ -1,6 +1,7 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.db import models
+from django.utils import timezone
 
 
 # Create your models here.
@@ -10,6 +11,10 @@ class Question(models.Model):
 
     def __str__(self):
         return f"[{self.create_date.strftime("%Y-%M-%d")}] {self.question_text}"
+
+    def was_recent(self):
+        now = timezone.now()
+        return now - timedelta(days=1) <= self.create_date <= now
 
 
 class Choice(models.Model):
