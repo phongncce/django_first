@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 
+from django.contrib import admin
 from django.db import models
 from django.utils import timezone
 
@@ -13,6 +14,7 @@ class Question(models.Model):
     def __str__(self):
         return f"[{self.create_date.strftime("%Y-%m-%d")}] {self.question_text}"
 
+    @admin.display(boolean=True, ordering="-pub_date", description="Recent?")
     def was_recent(self):
         now = timezone.now()
         return now - timedelta(days=1) <= self.create_date <= now
