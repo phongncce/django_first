@@ -8,9 +8,10 @@ from django.utils import timezone
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     create_date = models.DateTimeField(auto_now_add=True)
+    pub_date = models.DateTimeField('Published Date', null=True)
 
     def __str__(self):
-        return f"[{self.create_date.strftime("%Y-%M-%d")}] {self.question_text}"
+        return f"[{self.create_date.strftime("%Y-%m-%d")}] {self.question_text}"
 
     def was_recent(self):
         now = timezone.now()
